@@ -70,7 +70,7 @@ namespace Ekkam
                     {
                         print("selector tapped, index: " + selector.index);
                         DropPiece(selector.index, true);
-                        // Invoke(nameof(AllowTapping), 0.25f);
+                        // Invoke(nameof(AllowTappingTest), 0.25f);
                     }
                 }
             }
@@ -92,6 +92,12 @@ namespace Ekkam
             if (selector != null) selector.SetActive(allow);
             allowTap = allow;
             turnText.text = allow ? "Your turn!" : "Waiting for opponent...";
+        }        
+        public void AllowTappingTest()
+        {
+            if (selector != null) selector.SetActive(true);
+            allowTap = true;
+            turnText.text = true ? "Your turn!" : "Waiting for opponent...";
         }
         
         public void OnPositionChanged(InputAction.CallbackContext context)
