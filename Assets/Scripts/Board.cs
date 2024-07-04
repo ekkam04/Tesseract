@@ -40,43 +40,49 @@ namespace Ekkam
         }
         
         // Check for a win if the player has a piece in all 4 cells of a row, column, or diagonal, anywhere on the board
-        // boardCells[,,].ownerPlayerNumber is the player number of the piece in that cell
         public void CheckForWinner(int playerNumberToCheck)
         {
-            // Check rows
-            for (int z = 0; z < 4; z++)
+            // Check rows, columns, and pillars
+            for (int i = 0; i < 4; i++)
             {
-                for (int y = 0; y < 4; y++)
+                for (int j = 0; j < 4; j++)
                 {
-                    if (boardCells[0, z, y].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[1, z, y].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[2, z, y].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[3, z, y].ownerPlayerNumber == playerNumberToCheck)
-                    {
-                        Debug.Log($"Player {playerNumberToCheck} wins!");
-                        return;
-                    }
+                    if (CheckLine(playerNumberToCheck, new Vector3Int(i, j, 0), Vector3Int.forward)) return;
+                    if (CheckLine(playerNumberToCheck, new Vector3Int(i, 0, j), Vector3Int.up)) return;
+                    if (CheckLine(playerNumberToCheck, new Vector3Int(0, i, j), Vector3Int.right)) return;
                 }
             }
-            
-            // Check columns
-            for (int z = 0; z < 4; z++)
+
+            // Check face diagonals
+            for (int i = 0; i < 4; i++)
             {
-                for (int x = 0; x < 4; x++)
+                if (CheckLine(playerNumberToCheck, new Vector3Int(0, i, 0), new Vector3Int(1, 0, 1))) return;
+                if (CheckLine(playerNumberToCheck, new Vector3Int(3, i, 0), new Vector3Int(-1, 0, 1))) return;
+                if (CheckLine(playerNumberToCheck, new Vector3Int(0, 0, i), new Vector3Int(1, 1, 0))) return;
+                if (CheckLine(playerNumberToCheck, new Vector3Int(3, 0, i), new Vector3Int(-1, 1, 0))) return;
+                if (CheckLine(playerNumberToCheck, new Vector3Int(i, 0, 0), new Vector3Int(0, 1, 1))) return;
+                if (CheckLine(playerNumberToCheck, new Vector3Int(i, 0, 3), new Vector3Int(0, 1, -1))) return;
+            }
+
+            // Check space diagonals
+            if (CheckLine(playerNumberToCheck, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, 1))) return;
+            if (CheckLine(playerNumberToCheck, new Vector3Int(3, 0, 0), new Vector3Int(-1, 1, 1))) return;
+            if (CheckLine(playerNumberToCheck, new Vector3Int(0, 0, 3), new Vector3Int(1, 1, -1))) return;
+            if (CheckLine(playerNumberToCheck, new Vector3Int(3, 0, 3), new Vector3Int(-1, 1, -1))) return;
+        }
+        
+        private bool CheckLine(int playerNumberToCheck, Vector3Int start, Vector3Int step)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Vector3Int pos = start + i * step;
+                if (boardCells[pos.x, pos.z, pos.y] == null || boardCells[pos.x, pos.z, pos.y].ownerPlayerNumber != playerNumberToCheck)
                 {
-                    if (boardCells[x, z, 0].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[x, z, 1].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[x, z, 2].ownerPlayerNumber == playerNumberToCheck &&
-                        boardCells[x, z, 3].ownerPlayerNumber == playerNumberToCheck)
-                    {
-                        Debug.Log($"Player {playerNumberToCheck} wins!");
-                        return;
-                    }
+                    return false;
                 }
             }
-            
-            // Check diagonals
-                
+            Debug.LogWarning($"Player {playerNumberToCheck} wins!");
+            return true;
         }
 
         private void Update()

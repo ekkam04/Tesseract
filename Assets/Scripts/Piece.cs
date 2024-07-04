@@ -7,14 +7,12 @@ namespace Ekkam
         public GameObject piecePrefab;
         public Color pieceColor;
         public Player owner;
-        public int ownerPlayerNumber = 0;
         
-        public void InitializeValues(GameObject piecePrefab, Color pieceColor, Player owner, int ownerPlayerNumber)
+        public void InitializeValues(GameObject piecePrefab, Color pieceColor, Player owner)
         {
             this.piecePrefab = piecePrefab;
             this.pieceColor = pieceColor;
             this.owner = owner;
-            this.ownerPlayerNumber = ownerPlayerNumber;
         }
         public void SpawnPrefab()
         {

@@ -2,13 +2,15 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Multiplayer.Playmode;
+using System.Linq;
 
 namespace Ekkam
 {
     public class Player : MonoBehaviour
     {
         public Vector2 touchPosition;
-        public bool allowTap = true;
+        public bool allowTap = false;
         
         [SerializeField] GameObject piecePrefab;
         
@@ -16,8 +18,13 @@ namespace Ekkam
         public Color selectedPieceColor;
         
         public Board board;
+        public GameObject selector;
+        
+        public int playerNumber;
         
         [Header("Player References")]
+        
+        public Player opponent;
         
         public Color player1Color;
         public Color player2Color;
@@ -30,7 +37,20 @@ namespace Ekkam
 
         private void Start()
         {
-            ChangeTurn(1);
+            // var mppmTag = CurrentPlayer.ReadOnlyTags();
+            // if (mppmTag.Contains("P1"))
+            // {
+            //     playerNumber = 1;
+            //     Debug.LogWarning("Player 1");
+            // }
+            // else if (mppmTag.Contains("P2"))
+            // {
+            //     playerNumber = 2;
+            //     Debug.LogWarning("Player 2");
+            // }
+            
+            // ChangeTurn(1);
+            AllowTapping(false);
         }
 
         public void OnTapPerformed(InputAction.CallbackContext context)
@@ -44,30 +64,34 @@ namespace Ekkam
                 GameObject tappedObject = hit.collider.gameObject;
                 if (tappedObject.CompareTag("Selector"))
                 {
-                    allowTap = false;
+                    AllowTapping(false);
                     var selector = tappedObject.GetComponent<PieceSelector>();
                     if (selector != null)
                     {
                         print("selector tapped, index: " + selector.index);
-                        DropPiece(selector.index);
-                        Invoke(nameof(AllowTapping), 0.25f);
+                        DropPiece(selector.index, true);
+                        // Invoke(nameof(AllowTapping), 0.25f);
                     }
                 }
             }
         }
-
-        private void ChangeTurn(int player)
+        
+        public void Initialize(int player)
         {
-            playerTurn = player;
+            playerNumber = player;
             selectedPieceColor = player == 1 ? player1Color : player2Color;
             selectedPiecePrefab = player == 1 ? player1PiecePrefab : player2PiecePrefab;
-            turnText.color = player == 1 ? player1Color : player2Color;
-            turnText.text = $"Player {player}'s turn";
+            
+            opponent.playerNumber = player == 1 ? 2 : 1;
+            opponent.selectedPieceColor = player == 1 ? player2Color : player1Color;
+            opponent.selectedPiecePrefab = player == 1 ? player2PiecePrefab : player1PiecePrefab;
         }
         
-        private void AllowTapping()
+        public void AllowTapping(bool allow)
         {
-            allowTap = true;
+            if (selector != null) selector.SetActive(allow);
+            allowTap = allow;
+            turnText.text = allow ? "Your turn!" : "Waiting for opponent...";
         }
         
         public void OnPositionChanged(InputAction.CallbackContext context)
@@ -75,7 +99,7 @@ namespace Ekkam
             touchPosition = context.ReadValue<Vector2>();
         }
 
-        private void DropPiece(Vector2 index)
+        public void DropPiece(Vector2Int index, bool isOwner)
         {
             BoardCell lowestEmptyCell = null;
             float lowestZ = 4f;
@@ -86,7 +110,7 @@ namespace Ekkam
                 {
                     if (new Vector2(cell.index.x, cell.index.y) == index)
                     {
-                        print("found cell at index: " + cell.index + " with occupant: " + cell.occupant);
+                        // print("found cell at index: " + cell.index + " with occupant: " + cell.occupant);
                         if (cell.occupant == null && cell.index.z < lowestZ)
                         {
                             lowestEmptyCell = cell;
@@ -101,10 +125,12 @@ namespace Ekkam
                 print("lowest empty cell: " + lowestEmptyCell.index);
                 SpawnPiece(lowestEmptyCell.transform.position);
                 lowestEmptyCell.occupant = piecePrefab.GetComponent<Piece>();
-                lowestEmptyCell.ownerPlayerNumber = playerTurn;
+                lowestEmptyCell.ownerPlayerNumber = playerNumber;
+                
+                if (isOwner) Client.instance.SendSelector(index);
 
-                board.CheckForWinner(playerTurn);
-                ChangeTurn(playerTurn == 1 ? 2 : 1);
+                board.CheckForWinner(playerNumber);
+                // ChangeTurn(playerTurn == 1 ? 2 : 1);
             }
             else
             {
@@ -115,7 +141,7 @@ namespace Ekkam
         private void SpawnPiece(Vector3 piecePosition)
         {
             GameObject piece = Instantiate(piecePrefab, piecePosition, Quaternion.identity);
-            piece.GetComponent<Piece>().InitializeValues(selectedPiecePrefab, selectedPieceColor, this, playerTurn);
+            piece.GetComponent<Piece>().InitializeValues(selectedPiecePrefab, selectedPieceColor, this);
             piece.GetComponent<Piece>().SpawnPrefab();
         }
     }
