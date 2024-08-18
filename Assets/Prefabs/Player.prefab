@@ -344,6 +344,42 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4001f262-294d-4c28-b048-3ec957d53d60
     m_ActionName: 'Touch/Position[/Device Simulator Touchscreen/touch0/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f277b049-5e62-4638-809d-98e5c8e3fc78
+    m_ActionName: 'Mouse/Rotate[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2098856113506239244}
+        m_TargetAssemblyTypeName: Ekkam.Player, Assembly-CSharp
+        m_MethodName: OnTapPerformed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bb5ecc85-9dbc-4cb2-9a27-7d5710376333
+    m_ActionName: 'Mouse/Select[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2098856113506239244}
+        m_TargetAssemblyTypeName: Ekkam.Player, Assembly-CSharp
+        m_MethodName: OnPositionChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 535a855c-4a43-4665-8c5a-689abafd4617
+    m_ActionName: 'Mouse/Position[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Touch

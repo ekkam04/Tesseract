@@ -836,6 +836,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 983998867}
+    - target: {fileID: 1576715950521698327, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: XYAxis
+      value: 
+      objectReference: {fileID: -175811658786423430, guid: 7f539cc8a2f1f42dabb6d625aa9ea486, type: 3}
     - target: {fileID: 2098856113506239244, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: board
       value: 
@@ -911,6 +915,42 @@ PrefabInstance:
     - target: {fileID: 4166652368149622593, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Touch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: f277b049-5e62-4638-809d-98e5c8e3fc78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: bb5ecc85-9dbc-4cb2-9a27-7d5710376333
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: 535a855c-4a43-4665-8c5a-689abafd4617
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'Mouse/Rotate[/Mouse/delta]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'Mouse/Select[/Mouse/leftButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: 'Mouse/Position[/Mouse/position]'
       objectReference: {fileID: 0}
     - target: {fileID: 8139342897185064520, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: m_Name
@@ -7380,6 +7420,8 @@ MonoBehaviour:
   lobbyUI: {fileID: 258793411}
   waitingUI: {fileID: 158188884}
   gameUI: {fileID: 614732440}
+  winnerUI: {fileID: 283778163}
+  winnerText: {fileID: 1604986291}
 --- !u!4 &1466115930
 Transform:
   m_ObjectHideFlags: 0
@@ -7885,9 +7927,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 283778164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -565}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1824.2844, y: 860.19214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1604986291
@@ -10523,6 +10565,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 983998867}
+    - target: {fileID: 1576715950521698327, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: XYAxis
+      value: 
+      objectReference: {fileID: -175811658786423430, guid: 7f539cc8a2f1f42dabb6d625aa9ea486, type: 3}
     - target: {fileID: 2098856113506239244, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: board
       value: 
@@ -10582,6 +10628,18 @@ PrefabInstance:
     - target: {fileID: 4166652368149622593, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Touch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736864530634967137, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8139342897185064520, guid: 7ebb58dd82b70014baff062052c79cc2, type: 3}
       propertyPath: m_Name

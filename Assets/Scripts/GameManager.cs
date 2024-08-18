@@ -19,6 +19,8 @@ namespace Ekkam
         public GameObject lobbyUI;
         public GameObject waitingUI;
         public GameObject gameUI;
+        public GameObject winnerUI;
+        public TMP_Text winnerText;
 
         private void Start()
         {
@@ -67,6 +69,12 @@ namespace Ekkam
             mainMenuUI.SetActive(false);
             lobbyUI.SetActive(true);
             gameUI.SetActive(false);
+        }
+        
+        public void GameOver(int winner)
+        {
+            winnerText.text = $"Player {winner} wins!";
+            winnerUI.SetActive(true);
         }
     }
 }

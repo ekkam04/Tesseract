@@ -82,6 +82,7 @@ namespace Ekkam
                 }
             }
             Debug.LogWarning($"Player {playerNumberToCheck} wins!");
+            GameManager.instance.GameOver(playerNumberToCheck);
             return true;
         }
 
